@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research niches: what is growing</title>
+<style>
+:root { color-scheme:dark; --bg:#090d12; --fg:#e3eaf2; --muted:#a8b8ca; --card:#101823; --line:#263346;
+ --g:#62d3ad; --gbg:#12362c; --f:#a8b8ca; --fbg:#202d3d; --d:#ff8c8c; --dbg:#381d29;
+ --n:#c4a0ff; --nbg:#292039; --accent:#ffad58; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+header { border-bottom:1px solid var(--line); background:var(--card); }
+nav { max-width:1320px; margin:0 auto; padding:12px 16px; display:flex; flex-wrap:wrap; gap:6px 18px; }
+nav a { color:var(--fg); text-decoration:none; font-size:15px; font-weight:600; }
+nav a:hover, nav a[aria-current="page"] { color:var(--accent); }
+main { max-width:1320px; margin:0 auto; padding:28px 16px 64px; }
+h1 { font-size:38px; letter-spacing:-.035em; line-height:1.2; margin:0 0 6px; }
+h2 { font-size:20px; margin:36px 0 12px; }
+h3 { font-size:17px; margin:0; line-height:1.3; }
+h4 { font-size:12px; margin:16px 0 6px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+p { margin:6px 0; }
+a { color:var(--accent); }
+.meta, .muted { color:var(--muted); font-size:14px; }
+.strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px 0; }
+.stat-card { border-top:2px solid var(--accent); background:var(--card); border:1px solid var(--line); border-radius:5px; padding:16px; }
+.stat-card .big { font:650 30px ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums; }
+.stat-card .lbl { font-size:13px; color:var(--muted); font-weight:600; }
+.stat-card .txt { font-size:13px; color:var(--muted); margin-top:4px; }
+.honest { border-left:4px solid var(--accent); background:var(--card); padding:12px 16px; border-radius:10px; font-size:15px; }
+.honest-line { font-size:15px; font-weight:600; margin:14px 0 0; }
+.proxy-note { font-size:13px; color:var(--muted); margin:4px 0 12px; }
+.flag { font-size:13px; color:var(--d); background:var(--dbg); border-radius:8px; padding:6px 10px; margin:8px 0 0; }
+.thin { border-left:4px solid var(--d); background:var(--card); padding:12px 16px; border-radius:10px; font-size:15px; margin-top:14px; }
+.empty { margin:14px 0; padding:14px 16px; border-radius:10px; background:var(--card); border:1px dashed var(--line); }
+.filters { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 10px; }
+.filters button { font:inherit; font-size:14px; padding:7px 14px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--fg); cursor:pointer; }
+.filters button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+.search { width:100%; font:inherit; font-size:15px; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+  background:var(--card); color:var(--fg); margin-bottom:6px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px; }
+.tile, .card { display:block; background:var(--card); border:1px solid var(--line); border-radius:5px; padding:16px;
+  color:var(--fg); text-decoration:none; }
+.tile:hover { border-color:var(--accent); }
+.tile[hidden] { display:none; }
+.top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+.badge { font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; white-space:nowrap; }
+.badge.g { background:var(--gbg); color:var(--g); }
+.badge.f { background:var(--fbg); color:var(--f); }
+.badge.d { background:var(--dbg); color:var(--d); }
+.badge.n { background:var(--nbg); color:var(--n); }
+.spark { margin:10px 0 2px; }
+.spark svg { width:100%; height:auto; display:block; }
+.spark .area { fill:var(--accent); opacity:.12; }
+.spark .line { fill:none; stroke:var(--accent); stroke-width:2; }
+.spark .lab { fill:var(--muted); font-size:10px; }
+.spark .end { text-anchor:end; }
+.stat { font-size:14px; font-weight:600; margin:4px 0 0; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chip { background:var(--fbg); border-radius:999px; padding:4px 10px; font-size:13px; }
+.chip em { font-style:normal; color:var(--muted); }
+.caveat { margin-top:12px; font-size:13px; color:var(--muted); font-style:italic; }
+ul.plain { margin:0; padding-left:20px; }
+ul.plain li { margin:4px 0; }
+details.group { margin-top:12px; background:var(--card); border:1px solid var(--line); border-radius:5px; padding:12px 16px; }
+details.group > summary { cursor:pointer; font-weight:600; }
+details.group .grid { margin-top:12px; }
+table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:12px;
+  overflow:hidden; font-size:14px; }
+th, td { padding:8px 12px; text-align:left; border-bottom:1px solid var(--line); }
+th { font-size:12px; color:var(--muted); }
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+.scroll { overflow-x:auto; }
+footer { margin-top:44px; color:var(--muted); font-size:13px; }
+@media (max-width:640px) { .strip { grid-template-columns:repeat(2,1fr); } .stat-card .big { font-size:24px; } }
+</style></head>
+<body>
+<header><nav><strong style="color:var(--accent);margin-right:auto">SSRN / RESEARCH INTELLIGENCE</strong><a href="index.html" aria-current="page">Home</a><a href="niches.html">Niches</a><a href="method.html">Method</a><a href="health.html">Data health</a></nav></header>
+<main>
+
+<h1>Research niches: what is growing</h1>
+<p class="meta">Papers in economics, finance and business research. Data up to 2026-11-20.</p>
+<div class="strip">
+  <div class="stat-card"><div class="lbl">Niches tracked</div><div class="big">3,241</div><div class="txt">niches with enough papers to score</div></div>
+  <div class="stat-card"><div class="lbl">Papers covered</div><div class="big">136,086</div><div class="txt">dated papers from 2024-12-01</div></div>
+  <div class="stat-card"><div class="lbl">Growing now</div><div class="big">1</div><div class="txt">of the 12 niches in the grid</div></div>
+  <div class="stat-card"><div class="lbl">Data date</div><div class="big">20 Nov</div><div class="txt">2026-11-20</div></div>
+</div>
+<div class="honest"><strong>Early signals from one year of data.</strong> Not validated predictions yet.</div>
+
+<h2>Growing now</h2>
+<div class="grid"><a class="tile" href="niche/financial.html" data-card data-verdict="Growing" data-search="financial financial inclusion financial literacy financial markets literacy"><div class="top"><h3>financial</h3><span class="badge g">Growing</span></div><p class="flag">Generic label: one word, too broad to act on. Read the example papers before deciding anything.</p><div class="spark"><svg viewBox="0 0 240 72" role="img" aria-label="Papers per month"><polygon points="0,56 0.0,28.2 10.4,32.5 20.9,32.2 31.3,37.3 41.7,41.2 52.2,24.6 62.6,23.4 73.0,35.8 83.5,32.5 93.9,32.8 104.3,30.1 114.8,34.3 125.2,34.3 135.7,36.1 146.1,36.4 156.5,11.4 167.0,6.0 177.4,31.0 187.8,32.5 198.3,13.8 208.7,17.4 219.1,19.8 229.6,19.8 240.0,11.7 240.0,56" class="area"/><polyline points="0.0,28.2 10.4,32.5 20.9,32.2 31.3,37.3 41.7,41.2 52.2,24.6 62.6,23.4 73.0,35.8 83.5,32.5 93.9,32.8 104.3,30.1 114.8,34.3 125.2,34.3 135.7,36.1 146.1,36.4 156.5,11.4 167.0,6.0 177.4,31.0 187.8,32.5 198.3,13.8 208.7,17.4 219.1,19.8 229.6,19.8 240.0,11.7" class="line"/><text x="0" y="69" class="lab">Dec 2024</text><text x="240" y="69" class="lab end">Nov 2026</text></svg></div><p class="stat">up 26% (369 vs 292)</p></a></div>
+<p class="meta">Counts in the grid: Growing 1, Flat 2, Falling 0, Too few papers 9.
+<a href="niches.html">See all niches</a>.</p>
+<h2>More</h2>
+<p class="meta"><a href="method.html">How the verdicts work</a> &middot; <a href="health.html">Data health</a></p>
+
+</main>
+<footer>Generated 2026-11-20 from commit e760fea.</footer>
+</body></html>
